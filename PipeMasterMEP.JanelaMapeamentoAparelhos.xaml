@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="PipeMasterMEP.JanelaMapeamentoAparelhos" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Language="pt-BR" Title="PipeMaster - Mapeamento de Aparelhos" Width="720" Height="540" MinWidth="560" MinHeight="380" WindowStartupLocation="CenterOwner" Background="#1E1E1E" Foreground="#CCCCCC" FontFamily="Segoe UI" FontSize="13" xmlns:pipemastermep="clr-namespace:PipeMasterMEP;assembly=PipeMasterM">
+  <FrameworkElement.Resources>
+    <ResourceDictionary>
+      <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="#CCCCCC" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+      </Style>
+      <Style x:Key="Rotulo" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#AAAAAA" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+      </Style>
+      <Style x:Key="HeaderCell" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#AAAAAA" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="6,0" />
+      </Style>
+      <Style x:Key="DataRowBorder" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="#1E1E1E" />
+        <Setter Property="Border.CornerRadius" Value="4" />
+        <Setter Property="Border.Padding" Value="6" />
+        <Setter Property="Margin" Value="0,0,0,6" />
+      </Style>
+      <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+        <Setter Property="Height" Value="26" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+      </Style>
+      <Style x:Key="BtnPrimario" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#4EB4FF" />
+        <Setter Property="Foreground" Value="#FF000000" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="18,0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+      </Style>
+      <Style x:Key="BtnSecundario" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#333333" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="18,0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+      </Style>
+    </ResourceDictionary>
+  </FrameworkElement.Resources>
+  <Grid Margin="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <TextBlock Grid.Row="0" Text="MAPEAMENTO DE APARELHOS" FontSize="14" FontWeight="Bold" Foreground="#4EB4FF" Margin="0,0,0,4" />
+    <TextBlock Grid.Row="1" Foreground="#777777" FontSize="11" Margin="0,0,0,14" TextWrapping="Wrap" Text="Marque os aparelhos que deseja considerar no lançamento e, para cada um, escolha a família hidrossanitária do projeto que será importada em seu lugar. Aparelhos desmarcados são ignorados." />
+    <Border Grid.Row="2" Background="#252526" CornerRadius="6" Padding="12">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0" Margin="6,0,6,8">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="34" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.Column="0" Text="Usar" Style="{StaticResource HeaderCell}" HorizontalAlignment="Center" />
+          <TextBlock Grid.Column="1" Text="Aparelho (Vínculo de Arquitetura)" Style="{StaticResource HeaderCell}" />
+          <TextBlock Grid.Column="2" Text="Qtd" Style="{StaticResource HeaderCell}" HorizontalAlignment="Center" />
+          <TextBlock Grid.Column="3" Text="Família do Projeto (MEP)" Style="{StaticResource HeaderCell}" />
+        </Grid>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+          <ItemsControl Name="ListaItens" ItemsSource="{Binding Itens}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Style="{StaticResource DataRowBorder}">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="34" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="50" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Considerar este aparelho no lançamento" IsChecked="{Binding Incluir, Mode=TwoWay}" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,0">
+                      <TextBlock Foreground="#FFFFFFFF" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Text="{Binding TipoIdentificado}" />
+                      <TextBlock Foreground="#777777" FontSize="10" TextTrimming="CharacterEllipsis" Text="{Binding NomeFamiliaVinculo}" ToolTip="{Binding NomeFamiliaVinculo}" />
+                    </StackPanel>
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#AAAAAA" Text="{Binding Quantidade}" />
+                    <ComboBox Grid.Column="3" Margin="6,0" IsEnabled="{Binding Incluir}" ItemsSource="{Binding FamiliasProjetoDisponiveis}" SelectedItem="{Binding FamiliaSelecionada, Mode=TwoWay}" />
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </Grid>
+    </Border>
+    <CheckBox Grid.Row="3" Margin="2,12,0,10" Content="Salvar este mapeamento para reutilizar nos próximos projetos" IsChecked="{Binding SalvarParaProximosProjetos}" />
+    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+      <Button Name="BtnCancelar" Content="CANCELAR" Style="{StaticResource BtnSecundario}" Width="100" Margin="0,0,10,0" Click="BtnCancelar_Click" />
+      <Button Name="BtnImportar" Content="IMPORTAR APARELHOS" Style="{StaticResource BtnPrimario}" Width="170" Click="BtnImportar_Click" />
+    </StackPanel>
+  </Grid>
+</Window>

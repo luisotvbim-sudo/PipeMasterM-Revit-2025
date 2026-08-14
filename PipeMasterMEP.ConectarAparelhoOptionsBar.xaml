@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="PipeMasterMEP.ConectarAparelhoOptionsBar" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="28" Background="#00FFFFFF" VerticalAlignment="Center" xmlns:pipemastermep="clr-namespace:PipeMasterMEP;assembly=PipeMasterM">
+  <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="6,0" TextElement.FontFamily="Segoe UI" TextElement.FontSize="11">
+    <TextBlock Text="Altura (m):" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{Binding TextColor}" />
+    <TextBox Width="45" VerticalAlignment="Center" Background="#00FFFFFF" Margin="0,0,16,0" VerticalContentAlignment="Center" Text="{Binding Altura, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding TextColor}" BorderBrush="{Binding TextColor}" />
+    <Separator Margin="0,4,12,4" Opacity="0.3" Background="{Binding TextColor}" />
+    <TextBlock Text="Inclinação (%):" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{Binding TextColor}" />
+    <TextBox Width="40" VerticalAlignment="Center" Background="#00FFFFFF" Margin="0,0,16,0" VerticalContentAlignment="Center" Text="{Binding Inclinacao, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding TextColor}" BorderBrush="{Binding TextColor}" />
+    <Separator Margin="0,4,12,4" Opacity="0.3" Background="{Binding TextColor}" />
+    <TextBlock Text="Trecho Mín. (m):" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{Binding TextColor}" />
+    <TextBox Width="45" VerticalAlignment="Center" Background="#00FFFFFF" Margin="0,0,16,0" VerticalContentAlignment="Center" Text="{Binding TrechoMinimo, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding TextColor}" BorderBrush="{Binding TextColor}" />
+    <Separator Margin="0,4,12,4" Opacity="0.3" Background="{Binding TextColor}" />
+    <CheckBox Content="Desviar Viga" VerticalAlignment="Center" Margin="0,0,16,0" IsChecked="{Binding DesvioViga}" Foreground="{Binding TextColor}" />
+    <TextBlock Text="Avanço Desvio (m):" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{Binding TextColor}" />
+    <TextBox Width="45" VerticalAlignment="Center" Background="#00FFFFFF" Margin="0,0,16,0" VerticalContentAlignment="Center" Text="{Binding AvancoDesvio, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding TextColor}" BorderBrush="{Binding TextColor}" />
+  </StackPanel>
+</UserControl>

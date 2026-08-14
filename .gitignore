@@ -1,0 +1,13 @@
+.vs/
+.idea/
+bin/
+obj/
+dist/
+.dotnet/
+backup*/
+*.user
+*.suo
+*.dll
+*.pdb
+*.log
+.DS_Store

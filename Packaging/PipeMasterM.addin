@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>PipeMaster [M]</Name>
+    <Assembly>PipeMasterM.dll</Assembly>
+    <AddInId>104d72e0-2cbf-4611-b81f-625612664061</AddInId>
+    <FullClassName>PipeMasterMEP.App</FullClassName>
+    <VendorId>FAP</VendorId>
+    <VendorDescription>F.A Projetos</VendorDescription>
+  </AddIn>
+</RevitAddIns>

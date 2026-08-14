@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" AppVersion="1.0.6.0" Name="PipeMaster [M]" Author="F.A Projetos" Description="Suite MEP PipeMaster — build do código-fonte">
+  <CompanyDetails Name="F.A Projetos" />
+  <Components Description="Revit 2025">
+    <RuntimeRequirements OS="Win64" Platform="Revit" SeriesMin="R2025" SeriesMax="R2025" />
+    <ComponentEntry AppName="PipeMaster2025Source" ModuleName="./Contents/2025/PipeMasterM.addin" />
+  </Components>
+</ApplicationPackage>

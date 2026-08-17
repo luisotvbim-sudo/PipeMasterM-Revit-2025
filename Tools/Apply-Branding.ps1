@@ -1,6 +1,8 @@
 [CmdletBinding()]
 param(
-    [string]$IconDirectory = (Join-Path $PSScriptRoot "..\Assets\Icones")
+    [string]$IconDirectory = (Join-Path $PSScriptRoot "..\Assets\Icones"),
+    [ValidateRange(0, 1)]
+    [double]$StrokeReduction = 0.50
 )
 
 $ErrorActionPreference = "Stop"
@@ -183,6 +185,40 @@ foreach ($icon in $icons) {
                     if ($sharpenedAlpha -gt 0) {
                         $overlay.SetPixel($x, $y, [System.Drawing.Color]::FromArgb($sharpenedAlpha, $target.R, $target.G, $target.B))
                     }
+                }
+            }
+
+            if ($StrokeReduction -gt 0) {
+                $overlayReference = $overlay.Clone()
+                try {
+                    for ($y = 0; $y -lt $overlay.Height; $y++) {
+                        for ($x = 0; $x -lt $overlay.Width; $x++) {
+                            $center = $overlayReference.GetPixel($x, $y)
+                            if ($center.A -eq 0 -or
+                                $center.R -ne $accent.R -or
+                                $center.G -ne $accent.G -or
+                                $center.B -ne $accent.B) {
+                                continue
+                            }
+
+                            $neighborAlphas = @(
+                                $(if ($x -gt 0) { $overlayReference.GetPixel($x - 1, $y).A } else { 0 }),
+                                $(if ($x + 1 -lt $overlay.Width) { $overlayReference.GetPixel($x + 1, $y).A } else { 0 }),
+                                $(if ($y -gt 0) { $overlayReference.GetPixel($x, $y - 1).A } else { 0 }),
+                                $(if ($y + 1 -lt $overlay.Height) { $overlayReference.GetPixel($x, $y + 1).A } else { 0 })
+                            )
+                            $erodedAlpha = ($neighborAlphas | Measure-Object -Minimum).Minimum
+                            $newAlpha = [Math]::Clamp(
+                                [int][Math]::Round($center.A * (1 - $StrokeReduction) + $erodedAlpha * $StrokeReduction),
+                                0,
+                                255
+                            )
+                            $overlay.SetPixel($x, $y, [System.Drawing.Color]::FromArgb($newAlpha, $center.R, $center.G, $center.B))
+                        }
+                    }
+                }
+                finally {
+                    $overlayReference.Dispose()
                 }
             }
 

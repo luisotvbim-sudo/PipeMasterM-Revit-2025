@@ -63,6 +63,8 @@ Para reaplicar a identidade visual aos ícones originais:
 powershell -ExecutionPolicy Bypass -File .\Tools\Apply-Branding.ps1
 ```
 
+O parâmetro opcional `-StrokeReduction` aceita valores entre `0` e `1`; o padrão `0.50` afina os desenhos sem alterar o tamanho do fundo.
+
 ## Estado da reconstrução
 
 - Versão do assembly preservada: `1.0.6.0`

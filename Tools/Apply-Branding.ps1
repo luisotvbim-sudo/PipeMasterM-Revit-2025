@@ -28,8 +28,66 @@ function New-RoundedRectanglePath {
     return $path
 }
 
+function Export-SharpSmallIcon {
+    param(
+        [System.Drawing.Bitmap]$Source,
+        [string]$DestinationPath
+    )
+
+    $scaled = [System.Drawing.Bitmap]::new(16, 16, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+    try {
+        $graphics = [System.Drawing.Graphics]::FromImage($scaled)
+        try {
+            $graphics.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
+            $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+            $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::Half
+            $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+            $graphics.DrawImage($Source, [System.Drawing.Rectangle]::new(0, 0, 16, 16))
+        }
+        finally {
+            $graphics.Dispose()
+        }
+
+        $reference = $scaled.Clone()
+        try {
+            $amount = 0.55
+            for ($y = 1; $y -lt 15; $y++) {
+                for ($x = 1; $x -lt 15; $x++) {
+                    $center = $reference.GetPixel($x, $y)
+                    $neighbors = @(
+                        $reference.GetPixel($x - 1, $y),
+                        $reference.GetPixel($x + 1, $y),
+                        $reference.GetPixel($x, $y - 1),
+                        $reference.GetPixel($x, $y + 1)
+                    )
+                    $averageA = ($neighbors | Measure-Object -Property A -Average).Average
+                    $averageR = ($neighbors | Measure-Object -Property R -Average).Average
+                    $averageG = ($neighbors | Measure-Object -Property G -Average).Average
+                    $averageB = ($neighbors | Measure-Object -Property B -Average).Average
+                    $a = [Math]::Clamp([int][Math]::Round($center.A + $amount * ($center.A - $averageA)), 0, 255)
+                    $r = [Math]::Clamp([int][Math]::Round($center.R + $amount * ($center.R - $averageR)), 0, 255)
+                    $g = [Math]::Clamp([int][Math]::Round($center.G + $amount * ($center.G - $averageG)), 0, 255)
+                    $b = [Math]::Clamp([int][Math]::Round($center.B + $amount * ($center.B - $averageB)), 0, 255)
+                    $scaled.SetPixel($x, $y, [System.Drawing.Color]::FromArgb($a, $r, $g, $b))
+                }
+            }
+        }
+        finally {
+            $reference.Dispose()
+        }
+
+        $temporaryPath = "$DestinationPath.branding.tmp.png"
+        $scaled.Save($temporaryPath, [System.Drawing.Imaging.ImageFormat]::Png)
+        Move-Item -LiteralPath $temporaryPath -Destination $DestinationPath -Force
+    }
+    finally {
+        $scaled.Dispose()
+    }
+}
+
 $resolvedDirectory = (Resolve-Path -LiteralPath $IconDirectory).Path
-$icons = @(Get-ChildItem -LiteralPath $resolvedDirectory -Filter "*.png" -File)
+$icons = @(Get-ChildItem -LiteralPath $resolvedDirectory -Filter "*.png" -File |
+    Where-Object { $_.BaseName -notlike "*_16" })
 if ($icons.Count -eq 0) {
     throw "Nenhum ícone PNG encontrado em $resolvedDirectory"
 }
@@ -67,6 +125,8 @@ foreach ($icon in $icons) {
         }
 
         if ($brandingPixelCount -ge 8) {
+            $smallPath = Join-Path $resolvedDirectory "$($icon.BaseName)_16.png"
+            Export-SharpSmallIcon -Source $source -DestinationPath $smallPath
             Write-Verbose "Identidade visual já aplicada: $($icon.Name)"
             $skippedCount++
             continue
@@ -119,7 +179,10 @@ foreach ($icon in $icons) {
                         $target = $graphite
                     }
 
-                    $overlay.SetPixel($x, $y, [System.Drawing.Color]::FromArgb($pixel.A, $target.R, $target.G, $target.B))
+                    $sharpenedAlpha = [Math]::Clamp([int][Math]::Round(($pixel.A - 128) * 1.35 + 128), 0, 255)
+                    if ($sharpenedAlpha -gt 0) {
+                        $overlay.SetPixel($x, $y, [System.Drawing.Color]::FromArgb($sharpenedAlpha, $target.R, $target.G, $target.B))
+                    }
                 }
             }
 
@@ -155,6 +218,8 @@ foreach ($icon in $icons) {
                 $temporaryPath = "$($icon.FullName).branding.tmp.png"
                 $output.Save($temporaryPath, [System.Drawing.Imaging.ImageFormat]::Png)
                 Move-Item -LiteralPath $temporaryPath -Destination $icon.FullName -Force
+                $smallPath = Join-Path $resolvedDirectory "$($icon.BaseName)_16.png"
+                Export-SharpSmallIcon -Source $output -DestinationPath $smallPath
                 $appliedCount++
             }
             finally {

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.DB.ExternalService;
 using Autodesk.Revit.UI;
@@ -277,7 +278,7 @@ public class App : IExternalApplication
             {
                 try
                 {
-                    d.Image = new BitmapImage(new Uri(p, UriKind.Absolute));
+                    d.Image = CarregarBitmap(icon16, 16);
                 }
                 catch
                 {
@@ -334,14 +335,8 @@ public class App : IExternalApplication
                     {
                         try
                         {
-                            BitmapImage bmp = new BitmapImage();
-                            bmp.BeginInit();
-                            bmp.UriSource = new Uri(caminhoIcone, UriKind.Absolute);
-                            bmp.CacheOption = BitmapCacheOption.OnLoad;
-                            bmp.EndInit();
-                            ((Freezable)bmp).Freeze();
-                            rbBtn.LargeImage = bmp;
-                            rbBtn.Image = bmp;
+                            rbBtn.LargeImage = CarregarBitmap(hackImagens[i], 32);
+                            rbBtn.Image = CarregarBitmap(NomeIconePequeno(hackImagens[i]), 16);
                         }
                         catch
                         {
@@ -355,6 +350,7 @@ public class App : IExternalApplication
             {
                 (string, string, string, string, string) tuple = botoes[num];
                 string cmdId = tuple.Item1;
+                string icon16 = tuple.Item3;
                 string icon32 = tuple.Item4;
                 string tooltip = tuple.Item5;
                 string idRevit2 = "CustomCtrl_%CustomCtrl_%PipeMaster [M]%Roteamento & Conexões%" + cmdId;
@@ -371,14 +367,8 @@ public class App : IExternalApplication
                 {
                     try
                     {
-                        BitmapImage bmp2 = new BitmapImage();
-                        bmp2.BeginInit();
-                        bmp2.UriSource = new Uri(caminhoIcone2, UriKind.Absolute);
-                        bmp2.CacheOption = BitmapCacheOption.OnLoad;
-                        bmp2.EndInit();
-                        ((Freezable)bmp2).Freeze();
-                        rbBtn2.LargeImage = bmp2;
-                        rbBtn2.Image = bmp2;
+                        rbBtn2.LargeImage = CarregarBitmap(icon32, 32);
+                        rbBtn2.Image = CarregarBitmap(icon16, 16);
                     }
                     catch
                     {
@@ -454,10 +444,36 @@ public class App : IExternalApplication
         }
         try
         {
-            botao.LargeImage = new BitmapImage(new Uri(caminho, UriKind.Absolute));
+            botao.LargeImage = CarregarBitmap(nomeArquivo, 32);
+            botao.Image = CarregarBitmap(NomeIconePequeno(nomeArquivo), 16);
         }
         catch
         {
         }
+    }
+
+    private BitmapImage CarregarBitmap(string nomeArquivo, int tamanho)
+    {
+        string caminho = Path.Combine(_pastaIcones, nomeArquivo);
+        if (!File.Exists(caminho))
+        {
+            return null;
+        }
+
+        BitmapImage bitmap = new BitmapImage();
+        bitmap.BeginInit();
+        bitmap.UriSource = new Uri(caminho, UriKind.Absolute);
+        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+        bitmap.DecodePixelWidth = tamanho;
+        bitmap.EndInit();
+        RenderOptions.SetBitmapScalingMode(bitmap, BitmapScalingMode.NearestNeighbor);
+        bitmap.Freeze();
+        return bitmap;
+    }
+
+    private static string NomeIconePequeno(string nomeArquivo)
+    {
+        return Path.GetFileNameWithoutExtension(nomeArquivo) + "_16" + Path.GetExtension(nomeArquivo);
     }
 }

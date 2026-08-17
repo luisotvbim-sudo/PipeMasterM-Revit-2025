@@ -55,7 +55,7 @@ O resultado é criado em `dist\PipeMasterM.bundle`. Ele contém somente a DLL co
 
 ## Identidade visual
 
-A interface usa laranja `#F57C00` como cor principal, cinza-claro `#E6E6E6` no fundo, branco nos controles e grafite `#333333` em textos e símbolos. Os ícones de 32 × 32 pixels ficam em `Assets\Icones`, com transparência preservada nos cantos.
+A interface usa laranja `#F57C00` como cor principal, cinza-claro `#E6E6E6` no fundo, branco nos controles e grafite `#333333` em textos e símbolos. Os ícones grandes de 32 × 32 pixels e suas versões pequenas otimizadas com sufixo `_16` ficam em `Assets\Icones`, com transparência preservada nos cantos. O Revit recebe cada tamanho separadamente para evitar redução automática e perda de nitidez.
 
 Para reaplicar a identidade visual aos ícones originais:
 

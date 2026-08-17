@@ -27,7 +27,7 @@ public class JanelaConfigAgua : Window
         base.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         base.ResizeMode = ResizeMode.NoResize;
         base.Topmost = true;
-        base.Background = new SolidColorBrush(Color.FromRgb(30, 30, 30));
+        base.Background = PipeMasterTheme.Brush(PipeMasterTheme.Background);
         base.FontFamily = new FontFamily("Segoe UI");
         Grid root = new Grid
         {
@@ -48,7 +48,7 @@ public class JanelaConfigAgua : Window
         TextBlock tituloJanela = new TextBlock
         {
             Text = "CONFIGURAÇÕES E PADRÕES",
-            Foreground = new SolidColorBrush(Color.FromRgb(78, 180, byte.MaxValue)),
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.Accent),
             FontWeight = FontWeights.Bold,
             FontSize = 14.0,
             Margin = new Thickness(0.0, 0.0, 0.0, 12.0)
@@ -81,7 +81,7 @@ public class JanelaConfigAgua : Window
         {
             Width = GridLength.Auto
         });
-        Button btnSalvar = BotaoAzul("SALVAR", 90.0);
+        Button btnSalvar = BotaoPrimario("SALVAR", 90.0);
         btnSalvar.Margin = new Thickness(0.0, 0.0, 8.0, 0.0);
         btnSalvar.Click += delegate
         {
@@ -89,7 +89,7 @@ public class JanelaConfigAgua : Window
         };
         Grid.SetColumn(btnSalvar, 0);
         linhaSalvarExcluir.Children.Add(btnSalvar);
-        Button btnExcluir = BotaoEscuro("EXCLUIR", 80.0);
+        Button btnExcluir = BotaoSecundario("EXCLUIR", 80.0);
         btnExcluir.Margin = new Thickness(0.0);
         btnExcluir.Click += delegate
         {
@@ -115,15 +115,15 @@ public class JanelaConfigAgua : Window
         _txtNovoNome = new TextBox
         {
             Height = 24.0,
-            Background = new SolidColorBrush(Color.FromRgb(30, 30, 30)),
-            Foreground = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(61, 61, 61)),
+            Background = PipeMasterTheme.Brush(PipeMasterTheme.Control),
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.Text),
+            BorderBrush = PipeMasterTheme.Brush(PipeMasterTheme.Border),
             VerticalContentAlignment = VerticalAlignment.Center,
             Margin = new Thickness(0.0, 0.0, 8.0, 0.0)
         };
         Grid.SetColumn(_txtNovoNome, 0);
         linhaSalvar.Children.Add(_txtNovoNome);
-        Button btnSalvarComo = BotaoAzul("SALVAR COMO...", 120.0);
+        Button btnSalvarComo = BotaoPrimario("SALVAR COMO...", 120.0);
         btnSalvarComo.Click += delegate
         {
             SalvarComo();
@@ -134,7 +134,7 @@ public class JanelaConfigAgua : Window
         stPresets.Children.Add(new TextBlock
         {
             Text = "Selecionar um padrão já carrega automaticamente as alturas/offsets abaixo e as configurações gerais (prumada, registro, ramal, recuo, diâmetros). Ex.: Padrão Cliente A, Padrão Escritório.",
-            Foreground = new SolidColorBrush(Color.FromRgb(120, 120, 120)),
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.TextMuted),
             FontSize = 10.0,
             TextWrapping = TextWrapping.Wrap,
             Margin = new Thickness(0.0, 8.0, 0.0, 0.0)
@@ -195,7 +195,7 @@ public class JanelaConfigAgua : Window
                 TextBlock lbl = new TextBlock
                 {
                     Text = tipo,
-                    Foreground = Brushes.White,
+                    Foreground = PipeMasterTheme.Brush(PipeMasterTheme.Text),
                     FontSize = 12.0,
                     VerticalAlignment = VerticalAlignment.Center
                 };
@@ -231,12 +231,12 @@ public class JanelaConfigAgua : Window
             HorizontalAlignment = HorizontalAlignment.Right,
             Margin = new Thickness(0.0, 12.0, 0.0, 0.0)
         };
-        Button btnFechar = BotaoEscuro("CANCELAR", 90.0);
+        Button btnFechar = BotaoSecundario("CANCELAR", 90.0);
         btnFechar.Click += delegate
         {
             Close();
         };
-        Button btnAplicar = BotaoAzul("APLICAR E FECHAR", 150.0);
+        Button btnAplicar = BotaoPrimario("APLICAR E FECHAR", 150.0);
         btnAplicar.Click += delegate
         {
             AplicarNoLancamento();
@@ -410,7 +410,7 @@ public class JanelaConfigAgua : Window
     {
         return new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(37, 37, 38)),
+            Background = PipeMasterTheme.Brush(PipeMasterTheme.Surface),
             CornerRadius = new CornerRadius(6.0),
             Padding = new Thickness(15.0),
             Margin = new Thickness(0.0, 0.0, 0.0, 15.0)
@@ -422,7 +422,7 @@ public class JanelaConfigAgua : Window
         return new TextBlock
         {
             Text = texto,
-            Foreground = Brushes.White,
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.Text),
             FontWeight = FontWeights.SemiBold,
             FontSize = 12.0,
             Margin = new Thickness(0.0, 0.0, 0.0, 10.0)
@@ -434,7 +434,7 @@ public class JanelaConfigAgua : Window
         return new TextBlock
         {
             Text = texto,
-            Foreground = new SolidColorBrush(Color.FromRgb(170, 170, 170)),
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.TextMuted),
             FontSize = 10.0
         };
     }
@@ -446,16 +446,16 @@ public class JanelaConfigAgua : Window
             Text = valor,
             Width = 60.0,
             Height = 22.0,
-            Background = new SolidColorBrush(Color.FromRgb(30, 30, 30)),
-            Foreground = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(61, 61, 61)),
+            Background = PipeMasterTheme.Brush(PipeMasterTheme.Control),
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.Text),
+            BorderBrush = PipeMasterTheme.Brush(PipeMasterTheme.Border),
             TextAlignment = TextAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Left
         };
     }
 
-    private static Button BotaoEscuro(string texto, double largura)
+    private static Button BotaoSecundario(string texto, double largura)
     {
         return new Button
         {
@@ -463,21 +463,22 @@ public class JanelaConfigAgua : Window
             Width = largura,
             Height = 30.0,
             Margin = new Thickness(0.0, 0.0, 10.0, 0.0),
-            Background = new SolidColorBrush(Color.FromRgb(51, 51, 51)),
-            Foreground = Brushes.White,
-            BorderThickness = new Thickness(0.0)
+            Background = PipeMasterTheme.Brush(PipeMasterTheme.Control),
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.Text),
+            BorderBrush = PipeMasterTheme.Brush(PipeMasterTheme.Border),
+            BorderThickness = new Thickness(1.0)
         };
     }
 
-    private static Button BotaoAzul(string texto, double largura)
+    private static Button BotaoPrimario(string texto, double largura)
     {
         return new Button
         {
             Content = texto,
             Width = largura,
             Height = 30.0,
-            Background = new SolidColorBrush(Color.FromRgb(78, 180, byte.MaxValue)),
-            Foreground = Brushes.Black,
+            Background = PipeMasterTheme.Brush(PipeMasterTheme.Accent),
+            Foreground = Brushes.White,
             FontWeight = FontWeights.SemiBold,
             BorderThickness = new Thickness(0.0)
         };

@@ -53,6 +53,16 @@ powershell -ExecutionPolicy Bypass -File .\Build-Bundle.ps1 -Configuration Test 
 
 O resultado é criado em `dist\PipeMasterM.bundle`. Ele contém somente a DLL compilada, o arquivo `.deps.json`, manifestos, ícones e os componentes WPF/Core do WebView2 com seu carregador nativo. PDBs, documentação XML, WebView2 WinForms e artefatos de build não são distribuídos. O único requisito externo em execução é o Autodesk Revit 2025 e suas APIs.
 
+## Identidade visual
+
+A interface usa laranja `#F57C00` como cor principal, cinza-claro `#E6E6E6` no fundo, branco nos controles e grafite `#333333` em textos e símbolos. Os ícones de 32 × 32 pixels ficam em `Assets\Icones`, com transparência preservada nos cantos.
+
+Para reaplicar a identidade visual aos ícones originais:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\Tools\Apply-Branding.ps1
+```
+
 ## Estado da reconstrução
 
 - Versão do assembly preservada: `1.0.6.0`

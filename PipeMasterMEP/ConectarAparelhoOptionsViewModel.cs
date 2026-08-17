@@ -118,15 +118,7 @@ public class ConectarAparelhoOptionsViewModel : INotifyPropertyChanged
 
     public void AjustarTema(Autodesk.Revit.DB.Color revitBgColor)
     {
-        double brilho = 0.299 * (double)(int)revitBgColor.Red + 0.587 * (double)(int)revitBgColor.Green + 0.114 * (double)(int)revitBgColor.Blue;
-        if (brilho < 128.0)
-        {
-            TextColor = Brushes.White;
-        }
-        else
-        {
-            TextColor = Brushes.Black;
-        }
+        TextColor = PipeMasterTheme.Brush(PipeMasterTheme.Text);
     }
 
     private void SaveSettings()

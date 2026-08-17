@@ -91,19 +91,19 @@ public class JanelaLancamentoAuto : Window
 
     private bool _isVentilacaoAtiva = false;
 
-    private System.Windows.Media.Color bgMain = System.Windows.Media.Color.FromRgb(30, 30, 30);
+    private readonly System.Windows.Media.Color bgMain = PipeMasterTheme.Background;
 
-    private System.Windows.Media.Color bgCard = System.Windows.Media.Color.FromRgb(37, 37, 38);
+    private readonly System.Windows.Media.Color bgCard = PipeMasterTheme.Surface;
 
-    private System.Windows.Media.Color bgControl = System.Windows.Media.Color.FromRgb(45, 45, 48);
+    private readonly System.Windows.Media.Color bgControl = PipeMasterTheme.Control;
 
-    private System.Windows.Media.Color strokeColor = System.Windows.Media.Color.FromRgb(51, 51, 51);
+    private readonly System.Windows.Media.Color strokeColor = PipeMasterTheme.Border;
 
-    private System.Windows.Media.Color accentBlue = System.Windows.Media.Color.FromRgb(6, 150, 215);
+    private readonly System.Windows.Media.Color accentColor = PipeMasterTheme.Accent;
 
-    private System.Windows.Media.Color textMain = System.Windows.Media.Color.FromRgb(240, 240, 240);
+    private readonly System.Windows.Media.Color textMain = PipeMasterTheme.Text;
 
-    private System.Windows.Media.Color textMuted = System.Windows.Media.Color.FromRgb(150, 150, 150);
+    private readonly System.Windows.Media.Color textMuted = PipeMasterTheme.TextMuted;
 
     public ConfigLancamentoAuto Configuracao { get; private set; } = new ConfigLancamentoAuto();
 
@@ -122,7 +122,7 @@ public class JanelaLancamentoAuto : Window
         Border header = new Border
         {
             Background = new SolidColorBrush(bgCard),
-            BorderBrush = new SolidColorBrush(accentBlue),
+            BorderBrush = new SolidColorBrush(accentColor),
             BorderThickness = new Thickness(0.0, 0.0, 0.0, 2.0),
             Padding = new Thickness(24.0, 18.0, 24.0, 18.0)
         };
@@ -158,7 +158,7 @@ public class JanelaLancamentoAuto : Window
         Border activeTabBorder = new Border
         {
             Background = new SolidColorBrush(bgCard),
-            BorderBrush = new SolidColorBrush(accentBlue),
+            BorderBrush = new SolidColorBrush(accentColor),
             BorderThickness = new Thickness(1.0, 1.0, 1.0, 2.0),
             Padding = new Thickness(16.0, 8.0, 16.0, 8.0),
             CornerRadius = new CornerRadius(4.0, 4.0, 0.0, 0.0)
@@ -166,7 +166,7 @@ public class JanelaLancamentoAuto : Window
         activeTabBorder.Child = new TextBlock
         {
             Text = "Rede de Esgoto",
-            Foreground = new SolidColorBrush(accentBlue),
+            Foreground = new SolidColorBrush(accentColor),
             FontSize = 13.0,
             FontWeight = FontWeights.SemiBold
         };
@@ -208,9 +208,9 @@ public class JanelaLancamentoAuto : Window
             ConfigCache.TabAtiva = 0;
             _isVentilacaoAtiva = false;
             activeTabBorder.Background = new SolidColorBrush(bgCard);
-            activeTabBorder.BorderBrush = new SolidColorBrush(accentBlue);
+            activeTabBorder.BorderBrush = new SolidColorBrush(accentColor);
             activeTabBorder.BorderThickness = new Thickness(1.0, 1.0, 1.0, 2.0);
-            ((TextBlock)activeTabBorder.Child).Foreground = new SolidColorBrush(accentBlue);
+            ((TextBlock)activeTabBorder.Child).Foreground = new SolidColorBrush(accentColor);
             ((TextBlock)activeTabBorder.Child).FontWeight = FontWeights.SemiBold;
             inactiveTabBorder.Background = new SolidColorBrush(bgMain);
             inactiveTabBorder.BorderBrush = new SolidColorBrush(bgMain);
@@ -229,9 +229,9 @@ public class JanelaLancamentoAuto : Window
             ConfigCache.TabAtiva = 1;
             _isVentilacaoAtiva = true;
             inactiveTabBorder.Background = new SolidColorBrush(bgCard);
-            inactiveTabBorder.BorderBrush = new SolidColorBrush(accentBlue);
+            inactiveTabBorder.BorderBrush = new SolidColorBrush(accentColor);
             inactiveTabBorder.BorderThickness = new Thickness(1.0, 1.0, 1.0, 2.0);
-            ((TextBlock)inactiveTabBorder.Child).Foreground = new SolidColorBrush(accentBlue);
+            ((TextBlock)inactiveTabBorder.Child).Foreground = new SolidColorBrush(accentColor);
             ((TextBlock)inactiveTabBorder.Child).FontWeight = FontWeights.SemiBold;
             activeTabBorder.Background = new SolidColorBrush(bgMain);
             activeTabBorder.BorderBrush = new SolidColorBrush(bgMain);
@@ -422,7 +422,7 @@ public class JanelaLancamentoAuto : Window
         };
         Border subBloq = new Border
         {
-            BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(6, 150, 215)),
+            BorderBrush = new SolidColorBrush(accentColor),
             BorderThickness = new Thickness(2.0, 0.0, 0.0, 0.0),
             Margin = new Thickness(18.0, 0.0, 0.0, 0.0),
             Padding = new Thickness(6.0, 3.0, 0.0, 3.0)
@@ -449,7 +449,7 @@ public class JanelaLancamentoAuto : Window
         cc2.Children.Add(subBloq);
         Border boxPia = new Border
         {
-            BorderBrush = new SolidColorBrush(accentBlue),
+            BorderBrush = new SolidColorBrush(accentColor),
             BorderThickness = new Thickness(0.0, 1.0, 0.0, 0.0),
             Margin = new Thickness(0.0, 10.0, 0.0, 0.0),
             Padding = new Thickness(0.0, 10.0, 0.0, 0.0)
@@ -1120,7 +1120,7 @@ public class JanelaLancamentoAuto : Window
             Content = "Iniciar Lançamento ▶",
             Height = 32.0,
             Padding = new Thickness(20.0, 0.0, 20.0, 0.0),
-            Background = new SolidColorBrush(accentBlue),
+            Background = new SolidColorBrush(accentColor),
             Foreground = Brushes.White,
             FontWeight = FontWeights.SemiBold,
             BorderThickness = new Thickness(0.0)
@@ -1148,7 +1148,7 @@ public class JanelaLancamentoAuto : Window
             return new TextBlock
             {
                 Text = text,
-                Foreground = new SolidColorBrush(accentBlue),
+                Foreground = new SolidColorBrush(accentColor),
                 FontWeight = FontWeights.SemiBold,
                 FontSize = 12.0,
                 Margin = new Thickness(0.0, 0.0, 0.0, 12.0)

@@ -60,21 +60,21 @@ public class JanelaLinhasEsgoto : Window
 
     private ExternalEvent _exEventPintar;
 
-    private System.Windows.Media.Color bgMain = System.Windows.Media.Color.FromRgb(30, 30, 30);
+    private readonly System.Windows.Media.Color bgMain = PipeMasterTheme.Background;
 
-    private System.Windows.Media.Color bgCard = System.Windows.Media.Color.FromRgb(37, 37, 38);
+    private readonly System.Windows.Media.Color bgCard = PipeMasterTheme.Surface;
 
-    private System.Windows.Media.Color bgControl = System.Windows.Media.Color.FromRgb(45, 45, 48);
+    private readonly System.Windows.Media.Color bgControl = PipeMasterTheme.Control;
 
-    private System.Windows.Media.Color strokeColor = System.Windows.Media.Color.FromRgb(51, 51, 51);
+    private readonly System.Windows.Media.Color strokeColor = PipeMasterTheme.Border;
 
-    private System.Windows.Media.Color accentBlue = System.Windows.Media.Color.FromRgb(6, 150, 215);
+    private readonly System.Windows.Media.Color accentColor = PipeMasterTheme.Accent;
 
-    private System.Windows.Media.Color textMain = System.Windows.Media.Color.FromRgb(240, 240, 240);
+    private readonly System.Windows.Media.Color textMain = PipeMasterTheme.Text;
 
-    private System.Windows.Media.Color textMuted = System.Windows.Media.Color.FromRgb(150, 150, 150);
+    private readonly System.Windows.Media.Color textMuted = PipeMasterTheme.TextMuted;
 
-    private System.Windows.Media.Color okGreen = System.Windows.Media.Color.FromRgb(76, 175, 80);
+    private readonly System.Windows.Media.Color okGreen = PipeMasterTheme.Success;
 
     public List<LinhaConfigUI> LinhasConfiguradas { get; private set; } = new List<LinhaConfigUI>();
 
@@ -106,7 +106,7 @@ public class JanelaLinhasEsgoto : Window
         Border header = new Border
         {
             Background = new SolidColorBrush(bgCard),
-            BorderBrush = new SolidColorBrush(accentBlue),
+            BorderBrush = new SolidColorBrush(accentColor),
             BorderThickness = new Thickness(0.0, 0.0, 0.0, 2.0),
             Padding = new Thickness(24.0, 18.0, 24.0, 18.0)
         };
@@ -140,7 +140,7 @@ public class JanelaLinhasEsgoto : Window
             Background = Brushes.Transparent,
             BorderThickness = new Thickness(0.0)
         };
-        string tabStyleXml = "<ResourceDictionary xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">\r\n                <Style TargetType=\"TabItem\">\r\n                    <Setter Property=\"Template\">\r\n                        <Setter.Value>\r\n                            <ControlTemplate TargetType=\"TabItem\">\r\n                                <Border Name=\"Border\" BorderThickness=\"0,0,0,2\" BorderBrush=\"Transparent\" Margin=\"0,0,15,0\" Padding=\"5,5,5,8\">\r\n                                    <ContentPresenter x:Name=\"ContentSite\" VerticalAlignment=\"Center\" HorizontalAlignment=\"Center\" ContentSource=\"Header\"/>\r\n                                </Border>\r\n                                <ControlTemplate.Triggers>\r\n                                    <Trigger Property=\"IsSelected\" Value=\"True\">\r\n                                        <Setter TargetName=\"Border\" Property=\"BorderBrush\" Value=\"#4dabf7\"/>\r\n                                        <Setter Property=\"TextElement.Foreground\" Value=\"#ffffff\"/>\r\n                                    </Trigger>\r\n                                    <Trigger Property=\"IsSelected\" Value=\"False\">\r\n                                        <Setter Property=\"TextElement.Foreground\" Value=\"#909090\"/>\r\n                                    </Trigger>\r\n                                    <MultiTrigger>\r\n                                        <MultiTrigger.Conditions>\r\n                                            <Condition Property=\"IsSelected\" Value=\"False\"/>\r\n                                            <Condition Property=\"IsMouseOver\" Value=\"True\"/>\r\n                                        </MultiTrigger.Conditions>\r\n                                        <Setter Property=\"TextElement.Foreground\" Value=\"#cccccc\"/>\r\n                                        <Setter TargetName=\"Border\" Property=\"BorderBrush\" Value=\"#444444\"/>\r\n                                    </MultiTrigger>\r\n                                </ControlTemplate.Triggers>\r\n                            </ControlTemplate>\r\n                        </Setter.Value>\r\n                    </Setter>\r\n                    <Setter Property=\"Background\" Value=\"Transparent\"/>\r\n                    <Setter Property=\"FontSize\" Value=\"14\"/>\r\n                    <Setter Property=\"FontWeight\" Value=\"SemiBold\"/>\r\n                    <Setter Property=\"Cursor\" Value=\"Hand\"/>\r\n                </Style>\r\n            </ResourceDictionary>";
+        string tabStyleXml = "<ResourceDictionary xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">\r\n                <Style TargetType=\"TabItem\">\r\n                    <Setter Property=\"Template\">\r\n                        <Setter.Value>\r\n                            <ControlTemplate TargetType=\"TabItem\">\r\n                                <Border Name=\"Border\" BorderThickness=\"0,0,0,2\" BorderBrush=\"Transparent\" Margin=\"0,0,15,0\" Padding=\"5,5,5,8\">\r\n                                    <ContentPresenter x:Name=\"ContentSite\" VerticalAlignment=\"Center\" HorizontalAlignment=\"Center\" ContentSource=\"Header\"/>\r\n                                </Border>\r\n                                <ControlTemplate.Triggers>\r\n                                    <Trigger Property=\"IsSelected\" Value=\"True\">\r\n                                        <Setter TargetName=\"Border\" Property=\"BorderBrush\" Value=\"#F57C00\"/>\r\n                                        <Setter Property=\"TextElement.Foreground\" Value=\"#333333\"/>\r\n                                    </Trigger>\r\n                                    <Trigger Property=\"IsSelected\" Value=\"False\">\r\n                                        <Setter Property=\"TextElement.Foreground\" Value=\"#6B6B6B\"/>\r\n                                    </Trigger>\r\n                                    <MultiTrigger>\r\n                                        <MultiTrigger.Conditions>\r\n                                            <Condition Property=\"IsSelected\" Value=\"False\"/>\r\n                                            <Condition Property=\"IsMouseOver\" Value=\"True\"/>\r\n                                        </MultiTrigger.Conditions>\r\n                                        <Setter Property=\"TextElement.Foreground\" Value=\"#333333\"/>\r\n                                        <Setter TargetName=\"Border\" Property=\"BorderBrush\" Value=\"#FF9800\"/>\r\n                                    </MultiTrigger>\r\n                                </ControlTemplate.Triggers>\r\n                            </ControlTemplate>\r\n                        </Setter.Value>\r\n                    </Setter>\r\n                    <Setter Property=\"Background\" Value=\"Transparent\"/>\r\n                    <Setter Property=\"FontSize\" Value=\"14\"/>\r\n                    <Setter Property=\"FontWeight\" Value=\"SemiBold\"/>\r\n                    <Setter Property=\"Cursor\" Value=\"Hand\"/>\r\n                </Style>\r\n            </ResourceDictionary>";
         tabControl.Resources.MergedDictionaries.Add((ResourceDictionary)XamlReader.Parse(tabStyleXml));
         TabItem abaEsgoto = new TabItem
         {
@@ -282,7 +282,7 @@ public class JanelaLinhasEsgoto : Window
                 _exEventPintar.Raise();
                 _txtStatusVaso.Text = $"{LinhasVasoSelecionadas.Count} selecionada(s)";
                 _txtStatusVaso.Foreground = new SolidColorBrush(okGreen);
-                _btnVaso.BorderBrush = new SolidColorBrush(accentBlue);
+                _btnVaso.BorderBrush = new SolidColorBrush(accentColor);
             }
             catch
             {
@@ -463,7 +463,7 @@ public class JanelaLinhasEsgoto : Window
                 _exEventPintar.Raise();
                 _txtStatusVent.Text = $"{PontasVentSelecionadas.Count} selecionada(s)";
                 _txtStatusVent.Foreground = new SolidColorBrush(okGreen);
-                _btnVent.BorderBrush = new SolidColorBrush(accentBlue);
+                _btnVent.BorderBrush = new SolidColorBrush(accentColor);
             }
             catch
             {
@@ -554,7 +554,7 @@ public class JanelaLinhasEsgoto : Window
             Content = "Iniciar Modelagem 3D",
             Height = 32.0,
             Padding = new Thickness(20.0, 0.0, 20.0, 0.0),
-            Background = new SolidColorBrush(accentBlue),
+            Background = new SolidColorBrush(accentColor),
             Foreground = Brushes.White,
             FontWeight = FontWeights.SemiBold,
             BorderThickness = new Thickness(0.0),
@@ -598,7 +598,7 @@ public class JanelaLinhasEsgoto : Window
             return new TextBlock
             {
                 Text = text,
-                Foreground = new SolidColorBrush(accentBlue),
+                Foreground = new SolidColorBrush(accentColor),
                 FontWeight = FontWeights.SemiBold,
                 FontSize = 12.0,
                 Margin = new Thickness(0.0, 0.0, 0.0, 12.0)
@@ -812,7 +812,7 @@ public class JanelaLinhasEsgoto : Window
                 Content = "Selecionar",
                 Height = 24.0,
                 IsEnabled = estavaAtivo,
-                Background = new SolidColorBrush(estavaAtivo ? accentBlue : bgMain),
+                Background = new SolidColorBrush(estavaAtivo ? accentColor : bgMain),
                 Foreground = (estavaAtivo ? Brushes.White : Brushes.DarkGray),
                 BorderThickness = new Thickness(0.0),
                 FontSize = 11.0,
@@ -841,7 +841,7 @@ public class JanelaLinhasEsgoto : Window
             {
                 config.TxtInclinacao.IsEnabled = true;
                 config.BtnSelecionar.IsEnabled = true;
-                config.BtnSelecionar.Background = new SolidColorBrush(accentBlue);
+                config.BtnSelecionar.Background = new SolidColorBrush(accentColor);
                 config.BtnSelecionar.Foreground = Brushes.White;
             };
             config.ChkAtivo.Unchecked += delegate

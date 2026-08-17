@@ -11,12 +11,12 @@ public class JanelaSucessoPremium : Window
 {
     public JanelaSucessoPremium(string titulo, string mensagem)
     {
-        Color bgMain = Color.FromRgb(30, 30, 30);
-        Color bgCard = Color.FromRgb(37, 37, 38);
-        Color strokeColor = Color.FromRgb(51, 51, 51);
-        Color accentBlue = Color.FromRgb(6, 150, 215);
-        Color textMain = Color.FromRgb(240, 240, 240);
-        Color textMuted = Color.FromRgb(150, 150, 150);
+        Color bgMain = PipeMasterTheme.Background;
+        Color bgCard = PipeMasterTheme.Surface;
+        Color strokeColor = PipeMasterTheme.Border;
+        Color accentColor = PipeMasterTheme.Accent;
+        Color textMain = PipeMasterTheme.Text;
+        Color textMuted = PipeMasterTheme.TextMuted;
         base.Title = "PipeMaster [M] - " + titulo;
         base.Width = 460.0;
         base.SizeToContent = SizeToContent.Height;
@@ -29,7 +29,7 @@ public class JanelaSucessoPremium : Window
         Border header = new Border
         {
             Background = new SolidColorBrush(bgCard),
-            BorderBrush = new SolidColorBrush(accentBlue),
+            BorderBrush = new SolidColorBrush(accentColor),
             BorderThickness = new Thickness(0.0, 0.0, 0.0, 2.0),
             Padding = new Thickness(24.0, 18.0, 24.0, 18.0)
         };
@@ -67,7 +67,7 @@ public class JanelaSucessoPremium : Window
         TextBlock checkText = new TextBlock
         {
             Text = "✔",
-            Foreground = new SolidColorBrush(accentBlue),
+            Foreground = new SolidColorBrush(accentColor),
             FontSize = 32.0,
             Margin = new Thickness(0.0, 0.0, 16.0, 0.0),
             VerticalAlignment = VerticalAlignment.Center
@@ -102,7 +102,7 @@ public class JanelaSucessoPremium : Window
             Content = "Continuar ▶",
             Height = 32.0,
             Padding = new Thickness(20.0, 0.0, 20.0, 0.0),
-            Background = new SolidColorBrush(accentBlue),
+            Background = new SolidColorBrush(accentColor),
             Foreground = Brushes.White,
             FontWeight = FontWeights.SemiBold,
             BorderThickness = new Thickness(0.0),

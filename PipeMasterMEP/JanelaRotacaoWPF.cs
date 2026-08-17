@@ -17,7 +17,7 @@ public class JanelaRotacaoWPF : Window
         base.Height = 620.0;
         base.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         base.ResizeMode = ResizeMode.NoResize;
-        base.Background = new SolidColorBrush(Color.FromRgb(40, 44, 52));
+        base.Background = PipeMasterTheme.Brush(PipeMasterTheme.Background);
         StackPanel painel = new StackPanel
         {
             Margin = new Thickness(15.0)
@@ -25,7 +25,7 @@ public class JanelaRotacaoWPF : Window
         TextBlock lblTitulo = new TextBlock
         {
             Text = "Escolha o Ângulo",
-            Foreground = Brushes.White,
+            Foreground = PipeMasterTheme.Brush(PipeMasterTheme.Text),
             FontSize = 14.0,
             FontWeight = FontWeights.Bold,
             Margin = new Thickness(0.0, 0.0, 0.0, 15.0),
@@ -46,10 +46,11 @@ public class JanelaRotacaoWPF : Window
                 Content = angulo + "°",
                 Height = 32.0,
                 Margin = new Thickness(0.0, 2.0, 0.0, 2.0),
-                Background = new SolidColorBrush(Color.FromRgb(50, 54, 62)),
-                Foreground = ((angulo < 0.0) ? Brushes.LightCoral : Brushes.LightSkyBlue),
+                Background = PipeMasterTheme.Brush(PipeMasterTheme.Control),
+                Foreground = ((angulo < 0.0) ? Brushes.Firebrick : PipeMasterTheme.Brush(PipeMasterTheme.Accent)),
                 FontWeight = FontWeights.Bold,
-                BorderThickness = new Thickness(0.0)
+                BorderBrush = PipeMasterTheme.Brush(PipeMasterTheme.Border),
+                BorderThickness = new Thickness(1.0)
             };
             btn.Click += delegate
             {
@@ -64,7 +65,7 @@ public class JanelaRotacaoWPF : Window
             Content = "Cancelar",
             Height = 35.0,
             Margin = new Thickness(0.0, 15.0, 0.0, 0.0),
-            Background = new SolidColorBrush(Color.FromRgb(70, 130, 180)),
+            Background = PipeMasterTheme.Brush(PipeMasterTheme.Accent),
             Foreground = Brushes.White,
             FontWeight = FontWeights.Bold,
             BorderThickness = new Thickness(0.0)

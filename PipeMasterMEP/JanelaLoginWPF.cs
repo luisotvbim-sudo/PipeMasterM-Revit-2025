@@ -20,7 +20,7 @@ public class JanelaLoginWPF : Window
         base.Height = 700.0;
         base.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         base.ResizeMode = ResizeMode.NoResize;
-        base.Background = new SolidColorBrush(Color.FromRgb(30, 30, 30));
+        base.Background = PipeMasterTheme.Brush(PipeMasterTheme.Background);
         _browser = new WebView2();
         base.Content = _browser;
         InicializarNavegador(url);

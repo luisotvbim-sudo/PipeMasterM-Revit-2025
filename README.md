@@ -55,7 +55,7 @@ O resultado é criado em `dist\PipeMasterM.bundle`. Ele contém somente a DLL co
 
 ## Identidade visual
 
-A interface usa laranja `#F57C00` como cor principal, cinza-claro `#E6E6E6` no fundo, branco nos controles e grafite `#333333` em textos e símbolos. Os ícones grandes de 32 × 32 pixels e suas versões pequenas otimizadas com sufixo `_16` ficam em `Assets\Icones`, com transparência preservada nos cantos. O Revit recebe cada tamanho separadamente para evitar redução automática e perda de nitidez.
+A interface usa laranja `#F57C00` como cor principal. Os ícones preservam integralmente o desenho, o fundo, a transparência, a espessura e as proporções dos arquivos originais; somente o matiz dos pixels roxos é convertido para o matiz laranja da marca. Os ícones grandes de 32 × 32 pixels e suas versões pequenas proporcionais com sufixo `_16` ficam em `Assets\Icones`. O Revit recebe cada tamanho separadamente para evitar redução automática e perda de nitidez.
 
 Para reaplicar a identidade visual aos ícones originais:
 
@@ -63,7 +63,7 @@ Para reaplicar a identidade visual aos ícones originais:
 powershell -ExecutionPolicy Bypass -File .\Tools\Apply-Branding.ps1
 ```
 
-O parâmetro opcional `-StrokeReduction` aceita valores entre `0` e `1`; o padrão `0.50` afina os desenhos sem alterar o tamanho do fundo.
+O processo mantém alfa, saturação e luminosidade durante a troca de matiz e não aplica afinação, engrossamento, redesenho ou nitidez artificial.
 
 ## Estado da reconstrução
 

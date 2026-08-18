@@ -55,7 +55,7 @@ O resultado é criado em `dist\PipeMasterM.bundle`. Ele contém somente a DLL co
 
 ## Identidade visual
 
-A interface usa laranja `#F57C00` como cor principal. Os ícones preservam integralmente o desenho, o fundo, a transparência, a espessura e as proporções dos arquivos originais; somente o matiz dos pixels roxos é convertido para o matiz laranja da marca. Os ícones grandes de 32 × 32 pixels e suas versões pequenas proporcionais com sufixo `_16` ficam em `Assets\Icones`. O Revit recebe cada tamanho separadamente para evitar redução automática e perda de nitidez.
+A aba do plugin no ribbon do Revit se chama `CEP-HS`. A interface usa laranja `#F57C00` como cor principal. Os ícones preservam integralmente o desenho, o fundo, a transparência, a espessura e as proporções dos arquivos originais; somente o matiz dos pixels roxos é convertido para o matiz laranja da marca. Os ícones grandes de 32 × 32 pixels e suas versões pequenas proporcionais com sufixo `_16` ficam em `Assets\Icones`. O Revit recebe cada tamanho separadamente para evitar redução automática e perda de nitidez.
 
 Para reaplicar a identidade visual aos ícones originais:
 

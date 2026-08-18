@@ -15,6 +15,10 @@ namespace PipeMasterMEP;
 
 public class App : IExternalApplication
 {
+    private const string RibbonTabName = "CEP-HS";
+
+    private const string ContextPanelName = "PipeMaster [M]";
+
     private static readonly (string CmdId, string Namespace, string Icon16, string Icon32, string Tooltip)[] _botoes = new (string, string, string, string, string)[6]
     {
         ("cmdSubir45", "PipeMasterMEP.ComandoSubir45", "Subir45_16.png", "Subir45.png", "Subir 45° / Desvio vertical ascendente de 45°"),
@@ -52,16 +56,16 @@ public class App : IExternalApplication
         _pastaIcones = Path.Combine(Path.GetDirectoryName(_assemblyPath), "..", "Icones");
         try
         {
-            application.CreateRibbonTab("PipeMaster [M]");
+            application.CreateRibbonTab(RibbonTabName);
         }
         catch
         {
         }
-        Autodesk.Revit.UI.RibbonPanel panelAcesso = application.CreateRibbonPanel("PipeMaster [M]", "Acesso");
+        Autodesk.Revit.UI.RibbonPanel panelAcesso = application.CreateRibbonPanel(RibbonTabName, "Acesso");
         string textoLogin = TestMode.Enabled ? "Modo\nTeste" : "Login";
         PushButton btnLogin = panelAcesso.AddItem(new PushButtonData("cmdLogin", textoLogin, _assemblyPath, "PipeMasterMEP.ComandoLogin")) as PushButton;
         CarregarIconeGrande(btnLogin, "acesso.png");
-        _panelModelagem = application.CreateRibbonPanel("PipeMaster [M]", "Roteamento & Conexões");
+        _panelModelagem = application.CreateRibbonPanel(RibbonTabName, "Roteamento & Conexões");
         PushButtonData dataCriarTubo = new PushButtonData("cmdCriarTubo", "Criar\nTubo", _assemblyPath, "PipeMasterMEP.ComandoCriarTubo")
         {
             AvailabilityClassName = "PipeMasterMEP.BloqueioDeLogin"
@@ -129,7 +133,7 @@ public class App : IExternalApplication
         string ldInclinar = "Selecione o(s) tubo(s) e pressione o comando alinhar. O PipeMaster fará a varredura a montante na topologia hidráulica e aplicará as taxas de caimento configuradas no painel. O comando realinha joelhos, junções e reduções excêntricas sem quebrar a rede.";
         string ttMoveConnect = "Desloca um tubo ou conexão e o acopla diretamente a outro elemento.";
         string ldMoveConnect = "Selecione primeiro o conector fixo e o depois o elemento que será movido. O comando arrasta o segundo elemento até a posição do primeiro e une os conectores.";
-        Autodesk.Revit.UI.RibbonPanel panelModifyHack = application.CreateRibbonPanel("PipeMaster [M]", "PipeMaster [M]");
+        Autodesk.Revit.UI.RibbonPanel panelModifyHack = application.CreateRibbonPanel(RibbonTabName, ContextPanelName);
         PushButtonData dataInclinarRedeCtx = new PushButtonData("cmdInclinarRedeCtx", "Inclinar\nSistema", _assemblyPath, "PipeMasterMEP.ComandoInclinarRede")
         {
             AvailabilityClassName = "PipeMasterMEP.BloqueioDeLogin",
@@ -158,7 +162,7 @@ public class App : IExternalApplication
         CarregarIconeGrande(panelModifyHack.AddItem(dataAlign3DCtx) as PushButton, "Alinhar Tridimensional.png");
         CarregarIconeGrande(panelModifyHack.AddItem(dataAlignBranchCtx) as PushButton, "align branch.png");
         CarregarIconeGrande(panelModifyHack.AddItem(dataMoveConnectCtx) as PushButton, "Mover e Conectar.png");
-        Autodesk.Revit.UI.RibbonPanel panelAlinhar = application.CreateRibbonPanel("PipeMaster [M]", "Alinhar");
+        Autodesk.Revit.UI.RibbonPanel panelAlinhar = application.CreateRibbonPanel(RibbonTabName, "Alinhar");
         PushButtonData dataAlign3D = new PushButtonData("cmdAlign3D", "Alinhamento\nTridimensional", _assemblyPath, "PipeMasterMEP.ComandoAlign3D")
         {
             AvailabilityClassName = "PipeMasterMEP.BloqueioDeLogin",
@@ -217,7 +221,7 @@ public class App : IExternalApplication
         CarregarIconeGrande(panelAlinhar.AddItem(dataRotacionar180) as PushButton, "Rotacionar 180.png");
         CarregarIconeGrande(panelAlinhar.AddItem(dataRotacionar181) as PushButton, "Rotacionar 45.png");
         CarregarIconeGrande(panelAlinhar.AddItem(dataRotacionarConexao) as PushButton, "Rotacionar Conexão.png");
-        Autodesk.Revit.UI.RibbonPanel panelConectar = application.CreateRibbonPanel("PipeMaster [M]", "Conectar e Desconectar");
+        Autodesk.Revit.UI.RibbonPanel panelConectar = application.CreateRibbonPanel(RibbonTabName, "Conectar e Desconectar");
         PushButtonData dataMoveConnect = new PushButtonData("cmdMoveConnect", "Mover e\nConectar", _assemblyPath, "PipeMasterMEP.ComandoMoveAndConnect")
         {
             AvailabilityClassName = "PipeMasterMEP.BloqueioDeLogin",
@@ -301,7 +305,7 @@ public class App : IExternalApplication
             {
                 return;
             }
-            RibbonTab myTab = ribbon.Tabs.FirstOrDefault((RibbonTab t) => t.Title == "PipeMaster [M]" || t.Id.Contains("PipeMaster [M]"));
+            RibbonTab myTab = ribbon.Tabs.FirstOrDefault((RibbonTab t) => t.Title == RibbonTabName || t.Id.Contains(RibbonTabName));
             if (myTab == null)
             {
                 return;
@@ -309,7 +313,7 @@ public class App : IExternalApplication
             RibbonTab modifyTab = ribbon.Tabs.FirstOrDefault((RibbonTab t) => t.Id == "Modify");
             if (modifyTab != null)
             {
-                Autodesk.Windows.RibbonPanel panelToMove = myTab.Panels.FirstOrDefault((Autodesk.Windows.RibbonPanel p) => p.Source.Title == "PipeMaster [M]");
+                Autodesk.Windows.RibbonPanel panelToMove = myTab.Panels.FirstOrDefault((Autodesk.Windows.RibbonPanel p) => p.Source.Title == ContextPanelName);
                 if (panelToMove != null)
                 {
                     myTab.Panels.Remove(panelToMove);
@@ -322,7 +326,7 @@ public class App : IExternalApplication
                 string[] hackImagens = new string[4] { "Inclinar Sistema.png", "Alinhar Tridimensional.png", "align branch.png", "Mover e Conectar.png" };
                 for (int i = 0; i < hackIds.Length; i++)
                 {
-                    string idRevit = "CustomCtrl_%CustomCtrl_%PipeMaster [M]%PipeMaster [M]%" + hackIds[i];
+                    string idRevit = "CustomCtrl_%CustomCtrl_%" + RibbonTabName + "%" + ContextPanelName + "%" + hackIds[i];
                     Autodesk.Windows.RibbonButton rbBtn = EncontrarBotaoAdWindows(modifyTab, idRevit);
                     if (rbBtn == null)
                     {
@@ -353,7 +357,7 @@ public class App : IExternalApplication
                 string icon16 = tuple.Item3;
                 string icon32 = tuple.Item4;
                 string tooltip = tuple.Item5;
-                string idRevit2 = "CustomCtrl_%CustomCtrl_%PipeMaster [M]%Roteamento & Conexões%" + cmdId;
+                string idRevit2 = "CustomCtrl_%CustomCtrl_%" + RibbonTabName + "%Roteamento & Conexões%" + cmdId;
                 Autodesk.Windows.RibbonButton rbBtn2 = EncontrarBotaoAdWindows(myTab, idRevit2);
                 if (rbBtn2 == null)
                 {
